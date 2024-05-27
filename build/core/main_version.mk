@@ -6,11 +6,14 @@ endif
 
 # crDroid System Version
 ADDITIONAL_SYSTEM_PROPERTIES += \
-    ro.crdroid.build.version=$(LINEAGE_VERSION) \
-    ro.crdroid.display.version=$(LINEAGE_DISPLAY_VERSION) \
-    ro.crdroid.version=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR) \
-    ro.modversion=$(CR_VERSION) \
-    ro.crdroidlegal.url=https://crdroid.net/legal.php
+    ro.orion.build.version=$(LINEAGE_VERSION) \
+    ro.orion.display.version=$(LINEAGE_DISPLAY_VERSION) \
+    ro.orion.version=$(PRODUCT_VERSION_MAJOR).$(PRODUCT_VERSION_MINOR) \
+    ro.modversion=$(ORION_VERSION) \
+    ro.orionlegal.url=https://crdroid.net/legal.php \
+    ro.orion.maintainer=$(ORION_MAINTAINER) \
+    ro.orion.build.variant=$(ORION_BUILD_VARIANT) \
+    ro.orion.release.type=$(ORION_BUILD_TYPE)
 
 # LineageOS Platform SDK Version
 ADDITIONAL_SYSTEM_PROPERTIES += \

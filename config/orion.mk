@@ -80,7 +80,11 @@ PRODUCT_COPY_FILES += \
 endif
 
 # Gapps
+WITH_GMS := $(ORION_GAPPS)
 ifeq ($(ORION_GAPPS),true)
+ORION_BUILD_VARIANT := Gapps
 $(call inherit-product-if-exists, vendor/gapps/common/common-vendor.mk)
+else
+  ORION_BUILD_VARIANT := Vanilla
 endif
 
