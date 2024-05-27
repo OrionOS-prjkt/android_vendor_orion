@@ -244,6 +244,9 @@ PRODUCT_PACKAGES += \
     DocumentsUIOverlay \
     NetworkStackOverlay
 
+# Signed
+include vendor/lineage/config/signed.mk
+
 # Translations
 CUSTOM_LOCALES += \
     ast_ES \
