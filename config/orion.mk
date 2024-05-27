@@ -69,6 +69,11 @@ PRODUCT_PACKAGES += \
     OmniJaws \
     OmniStyle
 
+# Gapps
+ifeq ($(ORION_GAPPS),true)
+$(call inherit-product-if-exists, vendor/gapps/common/common-vendor.mk)
+endif
+
 ifeq ($(TARGET_SUPPORTS_64_BIT_APPS),true)
 PRODUCT_PACKAGES += \
     FaceUnlock
