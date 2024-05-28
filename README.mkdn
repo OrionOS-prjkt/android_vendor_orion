@@ -1,10 +1,10 @@
-crDroid Android
+OrionOS Android
 ===========
 
 Getting started
 ---------------
 
-Please see the [crDroid Project](https://github.com/crdroidandroid/android/blob/14.0/README.mkdn) for building instructions, by device.
+Please see the [crDroid Project](https://github.com/OrionOS-prjkt/android?tab=readme-ov-file#orionos) for building instructions, by device.
 
 
 Submitting patches
