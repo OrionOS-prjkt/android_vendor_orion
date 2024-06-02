@@ -79,14 +79,3 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.biometrics.face.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/android.hardware.biometrics.face.xml
 endif
 
-# Gapps
-WITH_GMS := $(ORION_GAPPS)
-ifeq ($(ORION_GAPPS),true)
-ORION_BUILD_VARIANT := Gapps
-$(call inherit-product-if-exists, vendor/gapps/common/common-vendor.mk)
-PRODUCT_PACKAGES += OtaGapps
-else
-  PRODUCT_PACKAGES += OtaVanila
-  ORION_BUILD_VARIANT := Vanilla
-endif
-
