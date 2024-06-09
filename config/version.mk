@@ -6,6 +6,7 @@ ORION_VERSION := Arcturus
 
 # OOS maintainer flags
 ORION_MAINTAINER ?= Unknown
+ORION_MAINTAINER_LINK ?= https://t.me/OrionOS_prjkt
 
 # Check Official
 ifndef ORION_BUILD_TYPE
