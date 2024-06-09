@@ -13,7 +13,8 @@ ADDITIONAL_SYSTEM_PROPERTIES += \
     ro.orionlegal.url=https://crdroid.net/legal.php \
     ro.orion.maintainer=$(ORION_MAINTAINER) \
     ro.orion.build.variant=$(ORION_BUILD_VARIANT) \
-    ro.orion.release.type=$(ORION_BUILD_TYPE)
+    ro.orion.release.type=$(ORION_BUILD_TYPE) \
+    ro.orion.maintainer_link=$(ORION_MAINTAINER_LINK)
 
 # LineageOS Platform SDK Version
 ADDITIONAL_SYSTEM_PROPERTIES += \
