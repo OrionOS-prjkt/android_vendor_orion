@@ -242,6 +242,9 @@ PRODUCT_PACKAGES += \
     DocumentsUIOverlay \
     NetworkStackOverlay
 
+# Certification
+$(call inherit-product-if-exists, vendor/certification/config.mk)
+
 # Signed
 include vendor/lineage/config/signed.mk
 
