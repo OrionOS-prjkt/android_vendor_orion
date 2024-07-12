@@ -5,5 +5,5 @@
 <resources>
 
     <!-- Optional placeholders replaced at runtime: {device} - Device name -->
-    <string name="updater_server_url" translatable="false">https://raw.githubusercontent.com/OrionOS-prjkt/android_vendor_OrionOTA/14.0//builds/vanilla/{device}.json</string>
+    <string name="updater_server_url" translatable="false">https://raw.githubusercontent.com/OrionOS-prjkt/android_vendor_OrionOTA/14.0/builds/vanilla/{device}.json</string>
 </resources>
