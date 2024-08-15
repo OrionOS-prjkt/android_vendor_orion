@@ -2,7 +2,7 @@ PRODUCT_VERSION_MAJOR = 14
 PRODUCT_VERSION_MINOR = 0
 
 # Increase CR Version with each major release.
-ORION_VERSION := Arcturus
+ORION_VERSION := Centauri
 
 # OOS maintainer flags
 ORION_MAINTAINER ?= Unknown
