@@ -16,40 +16,33 @@
 #
 
 #$1=TARGET_DEVICE, $2=PRODUCT_OUT, $3=LINEAGE_VERSION
-gappsOTAjson=./vendor/OrionOTA/builds/gapps/$1.json
-vanillaOTAjson=./vendor/OrionOTA/builds/vanilla/$1.json
+existingOTAjson=./vendor/OrionOTA/builds/gapps/$1.json
 output=$2/$1.json
 
-# Initialize JSON output
-json_output='{
-  "response": ['
-first_entry=true
+if [ -f $existingOTAjson ]; then
+	#get data from already existing device json
+	#there might be a better way to parse json yet here we try without adding more dependencies like jq
+	maintainer=`grep -n "\"maintainer\"" $existingOTAjson | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs`
+	oem=`grep -n "\"oem\"" $existingOTAjson | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs`
+	device=`grep -n "\"device\"" $existingOTAjson | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs`
+	device_name=`grep -n "\"device_name\"" $existingOTAjson | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs`
+	filename=$3
+	version=`echo "$3" | cut -d'-' -f2`
+	download="https://sourceforge.net/projects/orionos/files/A14/$1/$filename/download"
+	buildprop=$2/system/build.prop
+	linenr=`grep -n "ro.system.build.date.utc" $buildprop | cut -d':' -f1`
+	timestamp=`sed -n $linenr'p' < $buildprop | cut -d'=' -f2`
+	md5=`md5sum "$2/$3" | cut -d' ' -f1`
+	size=`stat -c "%s" "$2/$3"`
 
-# Function to extract and append data from JSON files
-extract_data() {
-    local json_file=$1
+	#cleanup old file
+	if [ -f $output ]; then
+        	rm $output
+	fi
 
-    maintainer=$(grep -n "\"maintainer\"" $json_file | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs)
-    oem=$(grep -n "\"oem\"" $json_file | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs)
-    device=$(grep -n "\"device\"" $json_file | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs)
-    device_name=$(grep -n "\"device_name\"" $json_file | cut -d ":" -f 3 | sed 's/"//g' | sed 's/,//g' | xargs)
-    filename=$3
-    version=$(echo "$3" | cut -d'-' -f2)
-    download="https://sourceforge.net/projects/orionos/files/A14/$1/$filename/download"
-    buildprop=$2/system/build.prop
-    linenr=$(grep -n "ro.system.build.date.utc" $buildprop | cut -d':' -f1)
-    timestamp=$(sed -n $linenr'p' < $buildprop | cut -d'=' -f2)
-    md5=$(md5sum "$2/$3" | cut -d' ' -f1)
-    size=$(stat -c "%s" "$2/$3")
-
-    # Add data to JSON output
-    if [ "$first_entry" = true ]; then
-        first_entry=false
-    else
-        json_output+=","
-    fi
-    
-    json_output+='{
+	echo '{
+  "response": [
+    {
         "maintainer": "'$maintainer'",
         "oem": "'$oem'",
         "device": "'$device'",
@@ -60,27 +53,14 @@ extract_data() {
         "md5": "'$md5'",
         "size": '$size',
         "version": "'$version'"
-    }'
-}
+    }
+  ]
+}' >> $output
 
-# Process gapps OTA JSON if it exists
-if [ -f $gappsOTAjson ]; then
-    extract_data $gappsOTAjson
-fi
-
-# Process vanilla OTA JSON if it exists
-if [ -f $vanillaOTAjson ]; then
-    extract_data $vanillaOTAjson
-fi
-
-# Finalize JSON output
-if [ "$first_entry" = true ]; then
-    # No entries added, create dummy file
-    echo 'There is no official support for this device yet' > $output
+        echo "JSON file created at: $output"
 else
-    json_output+=']
-}'
-    echo "$json_output" > $output
+	#if not already supported, create dummy file with info in it on how to
+	echo 'There is no official support for this device yet' >> $output;
 fi
 
-echo "Output file created at: $output"
+echo ""
