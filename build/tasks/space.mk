@@ -26,4 +26,17 @@ space: $(DEFAULT_GOAL) $(INTERNAL_OTA_PACKAGE_TARGET)
 	$(hide) $(SHA256) $(LINEAGE_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(LINEAGE_TARGET_PACKAGE).sha256sum
 	$(hide) ./vendor/lineage/build/tools/createjson.sh $(TARGET_DEVICE) $(PRODUCT_OUT) $(LINEAGE_VERSION).zip
 	$(hide) rm -rf $(call intermediates-dir-for,PACKAGING,target_files)
-	@echo "Package Complete: $(LINEAGE_TARGET_PACKAGE)" >&2
+	@echo ${CL_GRN}""${CL_GRN}
+	@echo ${CL_GRN}"--------------------------------------------"${CL_GRN}
+	@echo ${CL_GRN}"   ____       _              ____   _____  "${CL_GRN}
+	@echo ${CL_GRN}"  / __ \     (_)            / __ \ / ____| "${CL_GRN}
+	@echo ${CL_GRN}" | |  | |_ __ _  ___  _ __ | |  | | (___   "${CL_GRN}
+	@echo ${CL_GRN}" | |  | | '__| |/ _ \| '_ \| |  | |\___ \  "${CL_GRN}
+	@echo ${CL_GRN}" | |__| | |  | | (_) | | | | |__| |____) | "${CL_GRN}
+	@echo ${CL_GRN}"  \____/|_|  |_|\___/|_| |_|\____/|_____/  "${CL_GRN}
+	@echo ${CL_GRN}"--------------------------------------------"${CL_GRN}
+	@echo ${CL_GRN}"=============-Package Completed-============"${CL_RST}
+	@echo ${CL_GRN}"Zip: "${CL_YLW} $(LINEAGE_TARGET_PACKAGE) ${CL_RST}
+	@echo ${CL_GRN}"Size: "${CL_YLW}" `ls -l $(LINEAGE_TARGET_PACKAGE) | cut -d ' ' -f 5` "${CL_RST}
+	@echo ${CL_GRN}"==========================================="${CL_RST}
+	@echo ""
